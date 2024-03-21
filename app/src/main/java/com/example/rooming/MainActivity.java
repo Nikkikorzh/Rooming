@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 String countryName = input.getText().toString();
-                //int countryId = inputId.getText().toString();
+                String countryId = inputId.getText().toString();
                 if (countryName.length() > 0) {
-                    countryDao.insert(new Country(countryName,"https://flagcdn.com/w80/az.png"));
+                    countryDao.insert(new Country(countryName,countryId));
                 }
             }
         });

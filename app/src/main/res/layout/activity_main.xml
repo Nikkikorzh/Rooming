@@ -29,6 +29,16 @@
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="276dp" />
 
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="276dp" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"
