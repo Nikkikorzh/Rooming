@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Button get = findViewById(R.id.adding);
         Button add = findViewById(R.id.getting);
         EditText input = findViewById(R.id.editText);
-        //EditText inputId = findViewById(R.id.editText2);
+        EditText inputId = findViewById(R.id.editText2);
 
 
 
@@ -56,10 +56,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 String countryName = input.getText().toString();
                 //int countryId = inputId.getText().toString();
                 if (countryName.length() > 0) {
-                    countryDao.insert(new Country(countryName,"https://flagcdn.com" +
-                            "/" +
-                            "16x12" +
-                            "/" + "ua" + "." + "png"));
+                    countryDao.insert(new Country(countryName,"https://flagcdn.com/w80/az.png"));
                 }
             }
         });
@@ -71,23 +68,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void setInitialData(){
 
         states.add(new Country ("Индия","https://flagcdn.com/w80/in.png"));
-        states.add(new Country ("Молдова", "https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "md\n" + ".\n" + "png"));
-        states.add(new Country ("Казахстан", "https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "kz\n" + ".\n" + "png"));
-        states.add(new Country ("Украина","https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "ua\n" + ".\n" + "png"));
-        states.add(new Country ("Германия", "https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "de\n" + ".\n" + "png"));
-        states.add(new Country ("Франция","https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "fr\n" + ".\n" + "png"));
-        states.add(new Country ("Беларусь","https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "by\n" + ".\n" + "png"));
-        states.add(new Country ("Румыния", "https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "ro\n" + ".\n" + "png"));
-        states.add(new Country ("США", "https://flagcdn.com\n" +
-                "/\n" + "w20\n" + "/\n" + "us\n" + ".\n" + "png"));
-        states.add(new Country ("Китай","https://alt-center.ru/scripts/jquery/kcfinder/upload/images/Kitay_4.jpg"));
+        states.add(new Country ("Молдова", "https://flagcdn.com/w80/md.png"));
+        states.add(new Country ("Казахстан", "https://flagcdn.com/w80/kz.png"));
+        states.add(new Country ("Украина","https://flagcdn.com/w80/ua.png"));
+        states.add(new Country ("Германия", "https://flagcdn.com/w80/de.png"));
+        states.add(new Country ("Франция","https://flagcdn.com/w80/fr.png"));
+        states.add(new Country ("Беларусь","https://flagcdn.com/w80/by.png"));
+        states.add(new Country ("Румыния", "https://flagcdn.com/w80/ro.png"));
+        states.add(new Country ("США", "https://flagcdn.com/w80/us.png"));
+        states.add(new Country ("Китай","https://flagcdn.com/w80/cn.png"));
     }
 
     @Override
