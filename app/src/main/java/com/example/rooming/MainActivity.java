@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        //countryDao.delete(new Country("England","123"));
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
         intent.putExtra("name",country.getName());
         intent.putExtra("id",country.getFlagId());
+        intent.putExtra("capital",country.getCapital());
+        intent.putExtra("size",country.getSize());
 
         startActivity(intent);
     }

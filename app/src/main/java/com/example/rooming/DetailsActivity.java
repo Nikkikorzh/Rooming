@@ -32,7 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(this).load(id).into(image);
         name.setText(getIntent().getStringExtra("name"));
         capital.setText(getIntent().getStringExtra("capital"));
-        size.setText(getIntent().getIntExtra("size",0));
+        size.setText(getIntent().getStringExtra("size"));
 
     }
 }
