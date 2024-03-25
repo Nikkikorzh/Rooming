@@ -18,5 +18,4 @@ public interface CountryDao {
     @Delete
     void delete(Country country);
 
-
 }

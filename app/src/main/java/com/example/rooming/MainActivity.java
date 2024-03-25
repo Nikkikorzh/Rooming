@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     MyDataBase myDataBase;
 
+    Boolean addedNew = true;
+    Integer counter = 0;
     CountryDao countryDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,28 +37,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Button add = findViewById(R.id.getting);
         EditText input = findViewById(R.id.editText);
         EditText inputId = findViewById(R.id.editText2);
+        EditText inputCapital = findViewById(R.id.textViewCapital);
+        EditText inputSize = findViewById(R.id.sizeText);
+
 
 
 
         get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                states.clear();
+                setInitialData();
                 List<Country> countries = countryDao.getAll();
-                for (int i = 0;i < countries.size(); i++) {
-                    states.add(countries.get(i));
-                }
+                states.addAll(countries);
                 Adapter adapter = new Adapter(getApplicationContext(),states);
                 countriesList.setAdapter(adapter);
             }
         });
 
+        //countryDao.delete(new Country("England","123"));
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String countryName = input.getText().toString();
                 String countryId = inputId.getText().toString();
+                String countryCapital = inputCapital.getText().toString();
+                Integer countrySize = Integer.parseInt(inputSize.getText().toString());
                 if (countryName.length() > 0) {
-                    countryDao.insert(new Country(countryName,countryId));
+                    countryDao.insert(new Country(countryName,countryId,countryCapital,countrySize));
+                    addedNew = true;
+                    counter++;
                 }
             }
         });
@@ -67,16 +77,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
     private void setInitialData(){
 
-        states.add(new Country ("Индия","https://flagcdn.com/w80/in.png"));
-        states.add(new Country ("Молдова", "https://flagcdn.com/w80/md.png"));
-        states.add(new Country ("Казахстан", "https://flagcdn.com/w80/kz.png"));
-        states.add(new Country ("Украина","https://flagcdn.com/w80/ua.png"));
-        states.add(new Country ("Германия", "https://flagcdn.com/w80/de.png"));
-        states.add(new Country ("Франция","https://flagcdn.com/w80/fr.png"));
-        states.add(new Country ("Беларусь","https://flagcdn.com/w80/by.png"));
-        states.add(new Country ("Румыния", "https://flagcdn.com/w80/ro.png"));
-        states.add(new Country ("США", "https://flagcdn.com/w80/us.png"));
-        states.add(new Country ("Китай","https://flagcdn.com/w80/cn.png"));
+        states.add(new Country ("Индия","https://flagcdn.com/w80/in.png","Нью-Дели",4200));
+        states.add(new Country ("Молдова", "https://flagcdn.com/w80/md.png","Кишинёв",1020));
+        states.add(new Country ("Казахстан", "https://flagcdn.com/w80/kz.png","Астана",3400));
+        states.add(new Country ("Украина","https://flagcdn.com/w80/ua.png","Киев",2800));
+        states.add(new Country ("Германия", "https://flagcdn.com/w80/de.png","Берлин",2700));
+        states.add(new Country ("Франция","https://flagcdn.com/w80/fr.png","Париж",2400));
+        states.add(new Country ("Беларусь","https://flagcdn.com/w80/by.png","Минск",1200));
+        states.add(new Country ("Румыния", "https://flagcdn.com/w80/ro.png","Бухарест",1870));
+        states.add(new Country ("США", "https://flagcdn.com/w80/us.png","Вашингтон",4300));
+        states.add(new Country ("Китай","https://flagcdn.com/w80/cn.png","Пекин",4500));
     }
 
     @Override
