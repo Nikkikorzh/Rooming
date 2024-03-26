@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        //countryDao.delete(new Country("England","123"));
+        countryDao.delete(new Country("Porto","123","Porto",123));
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
