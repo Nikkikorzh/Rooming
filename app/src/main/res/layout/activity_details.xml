@@ -20,8 +20,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="170dp"
-        android:layout_height="55dp"
+        android:layout_width="262dp"
+        android:layout_height="65dp"
         android:text="Name"
         android:textAlignment="center"
         android:textSize="28sp"
@@ -34,8 +34,8 @@
 
     <TextView
         android:id="@+id/capital"
-        android:layout_width="170dp"
-        android:layout_height="55dp"
+        android:layout_width="267dp"
+        android:layout_height="63dp"
         android:text="Name"
         android:textAlignment="center"
         android:textSize="28sp"
