@@ -4,89 +4,82 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     List<Country> states = new ArrayList<Country>();
     ListView countriesList;
 
-    MyDataBase myDataBase;
+    CountrApi countrApi;
+    TextView textView;
 
-    Boolean addedNew = true;
-    Integer counter = 0;
-    CountryDao countryDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setInitialData();
 
-        myDataBase = App.instance.getDataBase();
-        countryDao = myDataBase.countryDao();
-
         countriesList = findViewById(R.id.list);
-        Button get = findViewById(R.id.adding);
-        Button add = findViewById(R.id.getting);
-        EditText input = findViewById(R.id.editText);
-        EditText inputId = findViewById(R.id.editText2);
-        EditText inputCapital = findViewById(R.id.textViewCapital);
-        EditText inputSize = findViewById(R.id.sizeText);
 
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://restcountries.com/v3.1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        countrApi = retrofit.create(CountrApi.class);
 
-        get.setOnClickListener(new View.OnClickListener() {
+        countrApi.getAllCountries().enqueue(new Callback<List<Country>>() {
             @Override
-            public void onClick(View v) {
-                states.clear();
-                setInitialData();
-                List<Country> countries = countryDao.getAll();
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                List<Country> countries = response.body();
                 states.addAll(countries);
-                Adapter adapter = new Adapter(getApplicationContext(),states);
-                countriesList.setAdapter(adapter);
-            }
-        });
-
-        countryDao.delete(new Country("Porto","123","Porto",123));
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String countryName = input.getText().toString();
-                String countryId = inputId.getText().toString();
-                String countryCapital = inputCapital.getText().toString();
-                Integer countrySize = Integer.parseInt(inputSize.getText().toString());
-                if (countryName.length() > 0) {
-                    countryDao.insert(new Country(countryName,countryId,countryCapital,countrySize));
-                    addedNew = true;
-                    counter++;
+                Log.d("test", "getAllCountries() SUCCESS: found = " + countries.size() + " countries");
+                for (Country country : countries) {
+                    Log.d("test", " - " + country.code + " = " + country.name.common + "  " + country.flags.png);
+                }
+                if (!states.isEmpty()) {
+                    Adapter adapter = new Adapter(getApplicationContext(),states);
+                    countriesList.setAdapter(adapter);
                 }
             }
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+                Log.d("test", "getAllCountries() ERROR");
+            }
         });
-
 
         countriesList.setOnItemClickListener(this);
 
     }
     private void setInitialData(){
 
-        states.add(new Country ("Индия","https://flagcdn.com/w80/in.png","Нью-Дели",4200));
-        states.add(new Country ("Молдова", "https://flagcdn.com/w80/md.png","Кишинёв",1020));
-        states.add(new Country ("Казахстан", "https://flagcdn.com/w80/kz.png","Астана",3400));
-        states.add(new Country ("Украина","https://flagcdn.com/w80/ua.png","Киев",2800));
-        states.add(new Country ("Германия", "https://flagcdn.com/w80/de.png","Берлин",2700));
-        states.add(new Country ("Франция","https://flagcdn.com/w80/fr.png","Париж",2400));
-        states.add(new Country ("Беларусь","https://flagcdn.com/w80/by.png","Минск",1200));
-        states.add(new Country ("Румыния", "https://flagcdn.com/w80/ro.png","Бухарест",1870));
-        states.add(new Country ("США", "https://flagcdn.com/w80/us.png","Вашингтон",4300));
-        states.add(new Country ("Китай","https://flagcdn.com/w80/cn.png","Пекин",4500));
+//        states.add(new Country ("Индия","https://flagcdn.com/w80/in.png","Нью-Дели",4200));
+//        states.add(new Country ("Молдова", "https://flagcdn.com/w80/md.png","Кишинёв",1020));
+//        states.add(new Country ("Казахстан", "https://flagcdn.com/w80/kz.png","Астана",3400));
+//        states.add(new Country ("Украина","https://flagcdn.com/w80/ua.png","Киев",2800));
+//        states.add(new Country ("Германия", "https://flagcdn.com/w80/de.png","Берлин",2700));
+//        states.add(new Country ("Франция","https://flagcdn.com/w80/fr.png","Париж",2400));
+//        states.add(new Country ("Беларусь","https://flagcdn.com/w80/by.png","Минск",1200));
+//        states.add(new Country ("Румыния", "https://flagcdn.com/w80/ro.png","Бухарест",1870));
+//        states.add(new Country ("США", "https://flagcdn.com/w80/us.png","Вашингтон",4300));
+//        states.add(new Country ("Китай","https://flagcdn.com/w80/cn.png","Пекин",4500));
     }
 
     @Override
@@ -94,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Country country = (Country) parent.getItemAtPosition(position);
 
         Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
-        intent.putExtra("name",country.getName());
-        intent.putExtra("id",country.getFlagId());
+        intent.putExtra("code",country.code);
 
         startActivity(intent);
     }

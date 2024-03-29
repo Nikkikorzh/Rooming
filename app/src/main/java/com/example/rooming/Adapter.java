@@ -33,8 +33,8 @@ public class Adapter extends ArrayAdapter<Country> {
         ImageView flagView = convertView.findViewById(R.id.flagItem);
         TextView textView = convertView.findViewById(R.id.nameItem);
         Country country = countries.get(position);
-        textView.setText(country.getName());
-        Glide.with(getContext()).load(country.getFlagId()).into(flagView);
+        textView.setText(country.name.common);
+        Glide.with(getContext()).load(country.flags.png).into(flagView);
         return convertView;
     }
 }

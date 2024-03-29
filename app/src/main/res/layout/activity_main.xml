@@ -7,54 +7,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/getting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Добавить" />
-
-    <Button
-        android:id="@+id/adding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Получить" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="250dp"
-        android:layout_height="64dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="276dp" />
-
-    <EditText
-        android:id="@+id/textViewCapital"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Capital" />
-
-    <EditText
-        android:id="@+id/sizeText"
-        android:layout_width="253dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Size" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="FlagId"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="276dp" />
-
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"

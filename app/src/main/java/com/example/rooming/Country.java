@@ -4,51 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+import com.google.gson.annotations.SerializedName;
+
 public class Country {
-    @NonNull
-    @PrimaryKey
-    private String name;
-    private String flagId;
+    @SerializedName("cca2")
+    public String code;
+    public Name name;
 
-    private String capital;
+    public Flags flags;
 
-    private int size;
 
-    public Country(String name,String flagId,String capital,int size){
-        this.name=name;
-        this.flagId = flagId;
-        this.capital = capital;
-        this.size = size;
-    }
-    public String getName() {
-        return this.name;
+    public static class Flags {
+        public String  png;
+        public String  svg;
+
+        public String  alt;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public static class Name {
+        public String common;
+        public String official;
     }
 
-    public String getFlagId() {
-        return this.flagId;
-    }
-
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
-    public String getCapital() {
-        return this.capital;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getSize() {
-        return this.size;
-    }
-
-    public void setFlagResource(String flagId) {
-        this.flagId = flagId;
-    }
 }
