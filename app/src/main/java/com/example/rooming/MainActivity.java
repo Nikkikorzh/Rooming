@@ -86,9 +86,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Country country = (Country) parent.getItemAtPosition(position);
 
-        Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
-        intent.putExtra("code",country.code);
-
-        startActivity(intent);
+        Dialog mdialog = new Dialog();
+        Bundle args = new Bundle();
+        args.putString("param", country.name.common);
+        args.putString("image", country.flags.png);
+        mdialog.setArguments(args);
+        mdialog.show(getSupportFragmentManager(),"test");
+//        Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
+//        intent.putExtra("code",country.code);
+//
+//        startActivity(intent);
     }
 }
