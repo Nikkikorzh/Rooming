@@ -2,8 +2,10 @@ package com.example.rooming;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Boolean addedNew = true;
     Integer counter = 0;
     CountryDao countryDao;
+    Adapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +43,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         EditText inputCapital = findViewById(R.id.textViewCapital);
         EditText inputSize = findViewById(R.id.sizeText);
 
-
+        adapter = new Adapter(getApplicationContext(), states);
 
 
         get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                states.clear();
-                setInitialData();
+                //states.clear();
+                //setInitialData();
                 List<Country> countries = countryDao.getAll();
                 states.addAll(countries);
                 Adapter adapter = new Adapter(getApplicationContext(),states);
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        countryDao.delete(new Country("Porto","123","Porto",123));
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,12 +96,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Country country = (Country) parent.getItemAtPosition(position);
 
-        Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
-        intent.putExtra("name",country.getName());
-        intent.putExtra("id",country.getFlagId());
-        intent.putExtra("capital",country.getCapital());
-        intent.putExtra("size",country.getSize());
+        Dialog mdialog = new Dialog();
 
-        startActivity(intent);
+        Bundle args = new Bundle();
+        args.putString("param", country.getName());
+        args.putString("image", country.getFlagId());
+        args.putString("capital", country.getCapital());
+        args.putInt("size", country.getSize());
+        mdialog.setArguments(args);
+        deleted(country);
+        Adapter adapter = new Adapter(getApplicationContext(),states);
+        countriesList.setAdapter(adapter);
+        mdialog.show(getSupportFragmentManager(), "test");
+    }
+
+    public List<Country> deleted(Country country) {
+        countryDao.delete(country);
+        List <Country> updated = countryDao.getAll();
+        return updated;
     }
 }

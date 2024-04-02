@@ -37,4 +37,5 @@ public class Adapter extends ArrayAdapter<Country> {
         Glide.with(getContext()).load(country.getFlagId()).into(flagView);
         return convertView;
     }
+
 }

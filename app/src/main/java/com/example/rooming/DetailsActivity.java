@@ -28,7 +28,8 @@ public class DetailsActivity extends AppCompatActivity {
         capital = (TextView) findViewById(R.id.capital);
         size = (TextView) findViewById(R.id.sizes);
 
-        String id = getIntent().getStringExtra("id");
+
+        String id = getIntent().getStringExtra("image");
         Glide.with(this).load(id).into(image);
         name.setText(getIntent().getStringExtra("name"));
         capital.setText(getIntent().getStringExtra("capital"));
