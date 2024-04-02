@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         args.putString("param", country.name.common);
         args.putString("image", country.flags.png);
         mdialog.setArguments(args);
+
         mdialog.show(getSupportFragmentManager(),"test");
 //        Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
 //        intent.putExtra("code",country.code);
