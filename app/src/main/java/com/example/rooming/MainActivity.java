@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //states.clear();
-                //setInitialData();
+                states.clear();
+                setInitialData();
                 List<Country> countries = countryDao.getAll();
                 states.addAll(countries);
                 Adapter adapter = new Adapter(getApplicationContext(),states);
