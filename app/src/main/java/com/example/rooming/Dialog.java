@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dialog extends DialogFragment {
@@ -25,9 +28,15 @@ public class Dialog extends DialogFragment {
     ImageView img;
 
     Country country;
+    MainActivity mainActivity;
+
+    public Dialog(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
     MyDataBase myDataBase = App.instance.getDataBase();
     CountryDao countryDao = myDataBase.countryDao();
-
+    ListView countriesList;
+    List<Country> states = new ArrayList<Country>();
 
     @SuppressLint("MissingInflatedId")
     @NonNull
@@ -66,6 +75,10 @@ public class Dialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         countryDao.delete(new Country(parameter,"1","2",0));
+                        List<Country> countries = countryDao.getAll();
+                        mainActivity.states.clear();
+                        mainActivity.states.addAll(countries);
+                        mainActivity.adapter.notifyDataSetChanged();
                     }
                 })
                 .create();
